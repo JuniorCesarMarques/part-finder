@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS parts (
+  id TEXT PRIMARY KEY NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS images (
+  id TEXT PRIMARY KEY NOT NULL,
+  part_id TEXT NOT NULL,
+  uri TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  FOREIGN KEY (part_id) REFERENCES parts(id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_images_part_id ON images(part_id);
