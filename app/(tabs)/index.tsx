@@ -31,6 +31,7 @@ import { router } from "expo-router";
 
 export default function IdentifyPartScreen() {
   const cameraRef = useRef<CameraView>(null);
+  console.log("github")
 
   const { setHeaderConfig } = useHeaderConfig();
 
