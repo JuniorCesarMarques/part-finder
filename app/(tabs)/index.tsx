@@ -3,6 +3,7 @@ import { useFocusEffect, useIsFocused } from "expo-router";
 import { useCallback, useRef, useState } from "react";
 import {
   ActivityIndicator,
+  BackHandler,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -44,6 +45,21 @@ export default function IdentifyPartScreen() {
   const [results, setResults] = useState<PartResult[]>([]);
 
   const { settings } = useSettings();
+
+  useFocusEffect(
+    useCallback(() => {
+      const subscription = BackHandler.addEventListener(
+        "hardwareBackPress",
+        () => {
+          setState("start");
+
+          return true;
+        },
+      );
+
+      return () => subscription.remove();
+    }, []),
+  );
 
   useFocusEffect(
     useCallback(() => {
@@ -215,7 +231,7 @@ export default function IdentifyPartScreen() {
         )}
 
         <Pressable style={styles.captureButton} onPress={takePhoto}>
-          <Text style={{ color: "#fff", fontWeight: "bold" }}>Tirar foto</Text>
+          <Text style={{ color: "#fff", fontWeight: "bold" }}>Capture</Text>
         </Pressable>
       </View>
     );
